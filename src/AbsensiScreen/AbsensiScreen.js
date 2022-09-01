@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { View, Text, Button, StyleSheet } from'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity, Linking } from'react-native';
+
+import { RNCamera } from "react-native-camera";
 
 const AbsensiScreen = ({navigation}) => {
     return(

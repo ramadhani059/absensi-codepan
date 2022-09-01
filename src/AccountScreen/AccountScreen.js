@@ -17,9 +17,7 @@ export default AccountScreen;
 
 const styles = StyleSheet.create({
     container:{
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#8fcbbc',
+        flex: 1,
+        backgroundColor: '#F0F1F5',
     },
 });
