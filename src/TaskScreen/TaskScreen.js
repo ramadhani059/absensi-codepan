@@ -66,6 +66,7 @@ const TaskScreen = ({navigation}) => {
                                     Pengerjaan UI/UX Mobile Apps
                                 </Text>
                                 <Text
+                                    numberOfLines={2}
                                     style={{
                                         fontFamily: 'Poppins-Regular',
                                         fontSize: 8,
@@ -79,7 +80,7 @@ const TaskScreen = ({navigation}) => {
                                     style={{
                                         fontFamily: 'Poppins-Regular',
                                         fontSize: 10,
-                                        color: '#D3D3D3',
+                                        color: '#9098B1',
                                     }}
                                 >
                                     15 Agt 2022. 12:00:00
@@ -145,6 +146,7 @@ const TaskScreen = ({navigation}) => {
                                     Pengerjaan UI/UX Mobile Apps
                                 </Text>
                                 <Text
+                                    numberOfLines={2}
                                     style={{
                                         fontFamily: 'Poppins-Regular',
                                         fontSize: 8,
@@ -158,7 +160,7 @@ const TaskScreen = ({navigation}) => {
                                     style={{
                                         fontFamily: 'Poppins-Regular',
                                         fontSize: 10,
-                                        color: '#D3D3D3',
+                                        color: '#9098B1',
                                     }}
                                 >
                                     15 Agt 2022. 12:00:00
@@ -224,6 +226,7 @@ const TaskScreen = ({navigation}) => {
                                     Pengerjaan UI/UX Mobile Apps
                                 </Text>
                                 <Text
+                                    numberOfLines={2}
                                     style={{
                                         fontFamily: 'Poppins-Regular',
                                         fontSize: 8,
@@ -237,7 +240,7 @@ const TaskScreen = ({navigation}) => {
                                     style={{
                                         fontFamily: 'Poppins-Regular',
                                         fontSize: 10,
-                                        color: '#D3D3D3',
+                                        color: '#9098B1',
                                     }}
                                 >
                                     15 Agt 2022. 12:00:00
@@ -303,6 +306,7 @@ const TaskScreen = ({navigation}) => {
                                     Pengerjaan UI/UX Mobile Apps
                                 </Text>
                                 <Text
+                                    numberOfLines={2}
                                     style={{
                                         fontFamily: 'Poppins-Regular',
                                         fontSize: 8,
@@ -316,7 +320,7 @@ const TaskScreen = ({navigation}) => {
                                     style={{
                                         fontFamily: 'Poppins-Regular',
                                         fontSize: 10,
-                                        color: '#D3D3D3',
+                                        color: '#9098B1',
                                     }}
                                 >
                                     15 Agt 2022. 12:00:00
@@ -382,6 +386,7 @@ const TaskScreen = ({navigation}) => {
                                     Pengerjaan UI/UX Mobile Apps
                                 </Text>
                                 <Text
+                                    numberOfLines={2}
                                     style={{
                                         fontFamily: 'Poppins-Regular',
                                         fontSize: 8,
@@ -395,7 +400,7 @@ const TaskScreen = ({navigation}) => {
                                     style={{
                                         fontFamily: 'Poppins-Regular',
                                         fontSize: 10,
-                                        color: '#D3D3D3',
+                                        color: '#9098B1',
                                     }}
                                 >
                                     15 Agt 2022. 12:00:00
@@ -461,6 +466,7 @@ const TaskScreen = ({navigation}) => {
                                     Pengerjaan UI/UX Mobile Apps
                                 </Text>
                                 <Text
+                                    numberOfLines={2}
                                     style={{
                                         fontFamily: 'Poppins-Regular',
                                         fontSize: 8,
@@ -474,7 +480,7 @@ const TaskScreen = ({navigation}) => {
                                     style={{
                                         fontFamily: 'Poppins-Regular',
                                         fontSize: 10,
-                                        color: '#D3D3D3',
+                                        color: '#9098B1',
                                     }}
                                 >
                                     15 Agt 2022. 12:00:00
@@ -517,8 +523,8 @@ const TaskScreen = ({navigation}) => {
                                 source={require('../../assets/icons/add.png')}
                                 resizeMode="contain"
                                 style={{
-                                    width: 20,
-                                    height: 20,
+                                    width: 15,
+                                    height: 15,
                                     marginRight: 15,
                                     tintColor: 'white',
                                 }}
@@ -531,7 +537,7 @@ const TaskScreen = ({navigation}) => {
                                     color: '#FFFFFF',
                                 }}
                             >
-                                Add Task
+                                ADD TASK
                             </Text>
                         </View>
                     </TouchableOpacity>
