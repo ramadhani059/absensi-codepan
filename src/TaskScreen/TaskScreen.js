@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import { View, Text, Button, StyleSheet, TouchableOpacity, ScrollView, FlatList, Image } from'react-native';
 
-const TaskScreen = ({navigation}) => {
+import {useNavigation} from '@react-navigation/native';
+
+const TaskScreen = () => {
+    const navigation = useNavigation();
+
+    const onPressAddTask = () => {
+        navigation.navigate('Add Task');
+    };
+
     return(
         <View style={styles.container}>
             <View>
@@ -517,6 +525,7 @@ const TaskScreen = ({navigation}) => {
                             alignItems: 'center',
                             justifyContent: 'center',
                         }}
+                        onPress={onPressAddTask}
                     >
                         <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                             <Image 
@@ -527,6 +536,7 @@ const TaskScreen = ({navigation}) => {
                                     height: 15,
                                     marginRight: 15,
                                     tintColor: 'white',
+                                    marginBottom: -5,
                                 }}
                             />
                             <Text 

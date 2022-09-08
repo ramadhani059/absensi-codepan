@@ -9,6 +9,7 @@ import AbsensiScreen from '../AbsensiScreen';
 import MessageScreen from '../MessageScreen';
 import AccountScreen from '../AccountScreen';
 import SplashScreen from '../SplashScreen';
+import AddTaskScreen from "../AddTaskScreen";
 
 // Navigation
 import { NavigationContainer } from "@react-navigation/native";
@@ -52,6 +53,7 @@ const Navigation = () => {
                 ) : userInfo.token ? (
                     <>
                       <Stack.Screen name="Home" component={Tabs} />
+                      <Stack.Screen name="Add Task" component={AddTaskScreen} />
                     </>
                 ) : (
                     <>

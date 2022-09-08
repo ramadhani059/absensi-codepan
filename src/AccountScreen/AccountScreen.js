@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, Button, StyleSheet, Image, TouchableOpacity } from'react-native';
+import { View, Text, Button, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from'react-native';
 
 import axios from "axios";
 
@@ -9,164 +9,174 @@ import { AuthContext } from "../Context/AuthContext";
 const AccountScreen = ({navigation}) => {
     const {userInfo, logout} = useContext(AuthContext);
     const [user, setUser] = useState({});
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const getAccount = () => {
-        setIsLoading(true);
-        axios
-            .get(`${BASE_URL}/account/index/${userInfo.user.id}`, {
-                headers: {Authorization: `Bearer ${userInfo.token}`},
-            })
-            .then(res => res.data)
-            .then(data => setUser(data))
-            .catch(e => {
-                console.log(`register error ${e}`);
-            });
-        setIsLoading(false);
-    };
+    const getAccount = async () => {
+        try {
+         const response = await fetch(`${BASE_URL}/account/index/${userInfo.user.id}`, {
+            method: 'GET',
+            headers: {Authorization: `Bearer ${userInfo.token}`},
+         })
+         const json = await response.json();
+         setUser(json);
+       } catch (error) {
+         console.error(error);
+       } finally {
+         setIsLoading(false);
+       }
+    }
 
     useEffect(() => {
         getAccount();
-        console.log(user);
     
         return () => {};
     }, []);
 
     return(
         <View style={styles.container}>
-            <View 
-                style={{
-                    backgroundColor: '#FFFFFF',
-                    width: '100%',
-                    paddingTop: 40,
-                    paddingBottom: 30,
-                    paddingHorizontal: 25,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    marginBottom: 10,
-                }}
-            >
-                <Image 
-                    source={require('../../assets/gambar/akun.png')}
-                    resizeMode="contain"
-                    style={{
-                        width: 75,
-                        height: 75,
-                        borderRadius: 100,
-                    }}
-                />
-                <View style={{width: '58%', flexDirection: 'column'}}>
-                    <Text numberOfLines={1} style={styles.bold}>{user.account.nama_lengkap}</Text>
-                    <Text style={styles.regular}>UI/UX Designer</Text>
-                </View>
-                <TouchableOpacity>
-                    <Image 
-                        source={require('../../assets/icons/edit.png')}
-                        resizeMode="contain"
+            {isLoading ? 
+                <>
+                    <View style={{flex: 1, justifyContent: 'center'}}>
+                        <ActivityIndicator size="large" color="#2196F3" />
+                    </View>
+                </>
+            : (
+                <>
+                    <View 
                         style={{
-                            width: 28,
-                            height: 28,
-                            tintColor: '#9098B1'
+                            backgroundColor: '#FFFFFF',
+                            width: '100%',
+                            paddingTop: 40,
+                            paddingBottom: 30,
+                            paddingHorizontal: 25,
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            marginBottom: 10,
                         }}
-                    />
-                </TouchableOpacity>
-            </View>
-            <View style={{backgroundColor: '#FFFFFF', paddingVertical: 20, marginBottom: 10}}>
-                <View style={styles.section}>
-                    <Image 
-                        source={require('../../assets/icons/account.png')}
-                        resizeMode="contain"
-                        style={{
-                            width: 25,
-                            height: 25,
-                            tintColor: '#2196F3'
-                        }}
-                    />
-                    <View style={{width: '30%', justifyContent: 'center'}}>
-                        <Text style={styles.heading}>Username</Text>
+                    >
+                        <Image 
+                            source={require('../../assets/gambar/akun.png')}
+                            resizeMode="contain"
+                            style={{
+                                width: 75,
+                                height: 75,
+                                borderRadius: 100,
+                            }}
+                        />
+                        <View style={{width: '58%', flexDirection: 'column'}}>
+                            <Text numberOfLines={1} style={styles.bold}>{user.account.nama_lengkap}</Text>
+                            <Text style={styles.regular}>{user.account.divisi}</Text>
+                        </View>
+                        <TouchableOpacity>
+                            <Image 
+                                source={require('../../assets/icons/edit.png')}
+                                resizeMode="contain"
+                                style={{
+                                    width: 28,
+                                    height: 28,
+                                    tintColor: '#9098B1'
+                                }}
+                            />
+                        </TouchableOpacity>
                     </View>
-                    <View style={{width: '55%', justifyContent: 'center', alignItems: 'flex-end'}}>
-                        <Text style={styles.content}>@ramadhani059</Text>
+                    <View style={{backgroundColor: '#FFFFFF', paddingVertical: 20, marginBottom: 10}}>
+                        <View style={styles.section}>
+                            <Image 
+                                source={require('../../assets/icons/account.png')}
+                                resizeMode="contain"
+                                style={{
+                                    width: 25,
+                                    height: 25,
+                                    tintColor: '#2196F3'
+                                }}
+                            />
+                            <View style={{width: '30%', justifyContent: 'center'}}>
+                                <Text style={styles.heading}>Username</Text>
+                            </View>
+                            <View style={{width: '55%', justifyContent: 'center', alignItems: 'flex-end'}}>
+                                <Text style={styles.content}>@{user.account.user.name}</Text>
+                            </View>
+                        </View>
+                        <View style={styles.section}>
+                            <Image 
+                                source={require('../../assets/icons/email.png')}
+                                resizeMode="contain"
+                                style={{
+                                    width: 25,
+                                    height: 25,
+                                    tintColor: '#2196F3'
+                                }}
+                            />
+                            <View style={{width: '25%', justifyContent: 'center'}}>
+                                <Text style={styles.heading}>Email</Text>
+                            </View>
+                            <View style={{width: '60%', alignItems: 'flex-end'}}>
+                                <Text numberOfLines={1} style={styles.content}>{user.account.user.email}</Text>
+                            </View>
+                        </View>
+                        <View style={styles.section}>
+                            <Image 
+                                source={require('../../assets/icons/smartphone-call.png')}
+                                resizeMode="contain"
+                                style={{
+                                    width: 25,
+                                    height: 25,
+                                    tintColor: '#2196F3'
+                                }}
+                            />
+                            <View style={{width: '30%', justifyContent: 'center'}}>
+                                <Text style={styles.heading}>Phone</Text>
+                            </View>
+                            <View style={{width: '55%', justifyContent: 'center', alignItems: 'flex-end'}}>
+                                <Text style={styles.content}>{user.account.nomor_hp}</Text>
+                            </View>
+                        </View>
+                        <View style={styles.section}>
+                            <Image 
+                                source={require('../../assets/icons/send.png')}
+                                resizeMode="contain"
+                                style={{
+                                    width: 25,
+                                    height: 25,
+                                    tintColor: '#2196F3'
+                                }}
+                            />
+                            <View style={{width: '30%', justifyContent: 'center'}}>
+                                <Text style={styles.heading}>Position</Text>
+                            </View>
+                            <View style={{width: '55%', justifyContent: 'center', alignItems: 'flex-end'}}>
+                                <Text numberOfLines={1} style={styles.content}>{user.account.statuspekerjaan.nama}</Text>
+                            </View>
+                        </View>
+                        <View style={styles.section}>
+                            <Image 
+                                source={require('../../assets/icons/pin.png')}
+                                resizeMode="contain"
+                                style={{
+                                    width: 25,
+                                    height: 25,
+                                    tintColor: '#2196F3'
+                                }}
+                            />
+                            <View style={{width: '30%', justifyContent: 'center'}}>
+                                <Text style={styles.heading}>Address</Text>
+                            </View>
+                            <View style={{width: '55%', alignItems: 'flex-end'}}>
+                                <Text numberOfLines={1} style={styles.content}>{user.account.alamat}</Text>
+                            </View>
+                        </View>
                     </View>
-                </View>
-                <View style={styles.section}>
-                    <Image 
-                        source={require('../../assets/icons/email.png')}
-                        resizeMode="contain"
-                        style={{
-                            width: 25,
-                            height: 25,
-                            tintColor: '#2196F3'
-                        }}
-                    />
-                    <View style={{width: '25%', justifyContent: 'center'}}>
-                        <Text style={styles.heading}>Email</Text>
+                    <View style={{backgroundColor: '#FFFFFF', paddingVertical: 20}}>
+                        <TouchableOpacity 
+                            onPress={logout}
+                            style={{justifyContent: 'center', alignItems: 'center'}}
+                        >
+                            <Text style={styles.logout}>Log Out</Text>
+                        </TouchableOpacity>
                     </View>
-                    <View style={{width: '60%', alignItems: 'flex-end'}}>
-                        <Text numberOfLines={1} style={styles.content}>pratamaramadhani@gmail.com</Text>
-                    </View>
-                </View>
-                <View style={styles.section}>
-                    <Image 
-                        source={require('../../assets/icons/smartphone-call.png')}
-                        resizeMode="contain"
-                        style={{
-                            width: 25,
-                            height: 25,
-                            tintColor: '#2196F3'
-                        }}
-                    />
-                    <View style={{width: '30%', justifyContent: 'center'}}>
-                        <Text style={styles.heading}>Phone</Text>
-                    </View>
-                    <View style={{width: '55%', justifyContent: 'center', alignItems: 'flex-end'}}>
-                        <Text style={styles.content}>+62 85815554360</Text>
-                    </View>
-                </View>
-                <View style={styles.section}>
-                    <Image 
-                        source={require('../../assets/icons/send.png')}
-                        resizeMode="contain"
-                        style={{
-                            width: 25,
-                            height: 25,
-                            tintColor: '#2196F3'
-                        }}
-                    />
-                    <View style={{width: '30%', justifyContent: 'center'}}>
-                        <Text style={styles.heading}>Position</Text>
-                    </View>
-                    <View style={{width: '55%', justifyContent: 'center', alignItems: 'flex-end'}}>
-                        <Text numberOfLines={1} style={styles.content}>Internship</Text>
-                    </View>
-                </View>
-                <View style={styles.section}>
-                    <Image 
-                        source={require('../../assets/icons/pin.png')}
-                        resizeMode="contain"
-                        style={{
-                            width: 25,
-                            height: 25,
-                            tintColor: '#2196F3'
-                        }}
-                    />
-                    <View style={{width: '30%', justifyContent: 'center'}}>
-                        <Text style={styles.heading}>Address</Text>
-                    </View>
-                    <View style={{width: '55%', alignItems: 'flex-end'}}>
-                        <Text numberOfLines={1} style={styles.content}>Jalan Wagir Baru II No 4F Kwangsan Sedati Sidoarjo</Text>
-                    </View>
-                </View>
-            </View>
-            <View style={{backgroundColor: '#FFFFFF', paddingVertical: 20}}>
-                <TouchableOpacity 
-                    onPress={logout}
-                    style={{justifyContent: 'center', alignItems: 'center'}}
-                >
-                    <Text style={styles.logout}>Log Out</Text>
-                </TouchableOpacity>
-            </View>
+                </>
+            )}
         </View>
     );
 }
