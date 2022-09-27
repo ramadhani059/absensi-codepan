@@ -22,9 +22,18 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const CustomTabBarButton = ({children, onPress}) => (
+  <View 
+    style={{
+      top: -35,
+      width: 100,
+      height: 100,
+      borderRadius: 50,
+      backgroundColor: '#FFFFFF',
+    }}
+  >
     <TouchableOpacity 
       style={{
-        top: -35,
+        top: 10,
         justifyContent: 'center',
         alignItems: 'center',
         ... styles.shadow
@@ -40,6 +49,7 @@ const CustomTabBarButton = ({children, onPress}) => (
         {children}
       </View>
     </TouchableOpacity>
+  </View>
 );
 
 const Navigation = () => {

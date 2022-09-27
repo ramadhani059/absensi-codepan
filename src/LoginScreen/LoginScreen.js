@@ -207,6 +207,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.5,
-        elevation: 5
+        elevation: 5,
+        color: '#000',
     },
 });

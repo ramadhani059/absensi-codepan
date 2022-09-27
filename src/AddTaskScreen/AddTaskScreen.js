@@ -53,8 +53,8 @@ const AddTaskScreen = ({}) => {
                         paddingHorizontal: 30,
                         marginTop: 30,
                         marginVertical: 30,
-                        width: 25,
-                        height: 25,
+                        width: 23,
+                        height: 23,
                         tintColor: 'black',
                     }}
                 />
@@ -62,7 +62,7 @@ const AddTaskScreen = ({}) => {
             <ScrollView>
                 <View style={styles.content}>
                     <Text style={{
-                        fontSize: 30,
+                        fontSize: 25,
                         fontFamily: 'Roboto-Bold',
                         color: 'black',
                         marginBottom: 30,
@@ -71,7 +71,7 @@ const AddTaskScreen = ({}) => {
                     </Text>
                     <View style={{marginBottom: 25}}>
                         <Text style={{
-                            fontSize: 18,
+                            fontSize: 15,
                             fontFamily: 'Roboto-Regular',
                             color: 'black',
                             marginBottom: -2,
@@ -86,7 +86,7 @@ const AddTaskScreen = ({}) => {
                     </View>
                     <View style={{marginBottom: 30}}>
                         <Text style={{
-                            fontSize: 18,
+                            fontSize: 15,
                             fontFamily: 'Roboto-Regular',
                             color: 'black',
                             marginBottom: -2,
@@ -108,10 +108,10 @@ const AddTaskScreen = ({}) => {
                                     marginTop: 15,
                                     marginBottom: 5,
                                     marginHorizontal: 40,
-                                    height: 60,
+                                    height: 55,
                                     borderRadius: 20,
                                     alignItems: 'center',
-                                    justifyContent: 'center',
+                                    justifyContent: 'center'
                                 }}
                             >
                                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
@@ -130,7 +130,7 @@ const AddTaskScreen = ({}) => {
                                     marginTop: 15,
                                     marginBottom: 5,
                                     marginHorizontal: 40,
-                                    height: 60,
+                                    height: 55,
                                     borderRadius: 20,
                                     alignItems: 'center',
                                     justifyContent: 'center',
@@ -142,17 +142,17 @@ const AddTaskScreen = ({}) => {
                                         source={require('../../assets/icons/add.png')}
                                         resizeMode="contain"
                                         style={{
-                                            width: 15,
-                                            height: 15,
+                                            width: 13,
+                                            height: 13,
                                             marginRight: 15,
                                             tintColor: 'white',
-                                            marginBottom: -3,
+                                            marginTop: 2,
                                         }}
                                     />
                                     <Text 
                                         style={{
                                             fontFamily: 'Poppins-Bold',
-                                            fontSize: 18,
+                                            fontSize: 15,
                                             fontWeight: 'bold',
                                             color: '#FFFFFF',
                                         }}
@@ -182,18 +182,20 @@ const styles = StyleSheet.create({
     },
     title:{
         borderColor: 'black',
-        height: 55,
+        height: 45,
         paddingHorizontal: 0,
         borderBottomWidth: 2,
         fontFamily: 'Roboto-Bold',
-        fontSize: 21,
+        fontSize: 15,
+        color: '#000',
     },
     description:{
         borderColor: 'black',
-        height: 55,
+        height: 45,
         paddingHorizontal: 0,
         borderBottomWidth: 2,
         fontFamily: 'Roboto-Regular',
-        fontSize: 19,
+        fontSize: 15,
+        color: '#000',
     },
 });

@@ -1,14 +1,48 @@
-import React, { Component } from "react";
-import { View, Text, Button, StyleSheet, TouchableOpacity, ScrollView, FlatList, Image } from'react-native';
+import React, { Component, useContext, useState, useEffect } from "react";
+import { View, Text, Button, StyleSheet, TouchableOpacity, ScrollView, FlatList, Image, ActivityIndicator, RefreshControl } from'react-native';
 
+import moment from "moment/moment";
 import {useNavigation} from '@react-navigation/native';
+import { BASE_URL } from "../config";
+import { AuthContext } from "../Context/AuthContext";
 
 const TaskScreen = () => {
+    const {userInfo} = useContext(AuthContext);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isrefresh, setRefresh] = useState(false);
+    const [listTask, setListTask] = useState([]);
     const navigation = useNavigation();
 
+    // Get API Data
+    const task = async () => {
+        try {
+            setIsLoading(true);
+            setRefresh(true);
+            const response = await fetch(`${BASE_URL}/task/index?user_id=${userInfo.user.id}`, {
+                method: 'GET',
+                headers: {Authorization: `Bearer ${userInfo.token}`},
+            })
+            const json = await response.json();
+            setListTask(json.task_id);
+            console.log(json.task_id);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsLoading(false);
+            setRefresh(false)
+        }
+    }
+
+    // Navigate
     const onPressAddTask = () => {
         navigation.navigate('Add Task');
     };
+
+    useEffect(() => {
+        task();
+
+        return () => {};
+    }, []);
 
     return(
         <View style={styles.container}>
@@ -32,495 +66,136 @@ const TaskScreen = () => {
                         Task
                     </Text>
                 </View>
-                <ScrollView>
-                    <TouchableOpacity
-                        style={{
-                            backgroundColor: '#FFFFFF',
-                            padding: 15,
-                            marginTop: 15,
-                            marginBottom: 5,
-                            marginHorizontal: 20,
-                            borderRadius: 10,
-                            shadowColor: '#000000',
-                            shadowOffset: {
-                                width: 0,
-                                height: 10,
-                            },
-                            shadowOpacity: 0.25,
-                            shadowRadius: 3.5,
-                            elevation: 5
-                        }}
-                    >
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                width: '75%',
-                            }}
-                        >
-                            <View 
-                                style={{
-                                    flexDirection: 'column',
-                                }}
-                            >
-                                <Text 
+                <ScrollView
+                    refreshControl={
+                        <RefreshControl 
+                            refreshing={isrefresh}
+                            onRefresh={task}
+                        />
+                    }
+                >
+                    {isLoading ?
+                        <>
+                            <View style={{paddingVertical: 20, marginTop: 10}}>
+                                <ActivityIndicator size="large" color="#2196F3" />
+                            </View>
+                        </>
+                    : (
+                        <>
+                            {listTask.slice(0).reverse().map((tugas,index) => (
+                                <TouchableOpacity
+                                    key={index}
+                                    source={tugas}
                                     style={{
-                                        fontFamily: 'Poppins-Bold',
-                                        fontSize: 14,
-                                        fontWeight: 'bold',
-                                        color: '#000000',
+                                        backgroundColor: '#FFFFFF',
+                                        padding: 15,
+                                        marginTop: 15,
                                         marginBottom: 5,
+                                        marginHorizontal: 20,
+                                        borderRadius: 10,
+                                        shadowColor: '#000000',
+                                        shadowOffset: {
+                                            width: 0,
+                                            height: 10,
+                                        },
+                                        shadowOpacity: 0.25,
+                                        shadowRadius: 3.5,
+                                        elevation: 5
                                     }}
                                 >
-                                    Pengerjaan UI/UX Mobile Apps
-                                </Text>
-                                <Text
-                                    numberOfLines={2}
-                                    style={{
-                                        fontFamily: 'Poppins-Regular',
-                                        fontSize: 8,
-                                        color: '#000000',
-                                        marginBottom: 10,
-                                    }}
-                                >
-                                    Pembuatan desain UI/UX untuk aplikasi mobile absensi yang meliputi fitur home, task, scan barcode, inbox dan profile
-                                </Text>
-                                <Text
-                                    style={{
-                                        fontFamily: 'Poppins-Regular',
-                                        fontSize: 10,
-                                        color: '#9098B1',
-                                    }}
-                                >
-                                    15 Agt 2022. 12:00:00
-                                </Text>
-                            </View>
-                            <View 
-                                style={{
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <Text 
-                                    style={{
-                                        color: '#28A745', 
-                                        fontFamily: 'Poppins-Semibold', 
-                                        fontSize: 14, 
-                                        fontWeight: 'bold',
-                                        padding: 25,
-                                    }}
-                                >
-                                    Success
-                                </Text>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={{
-                            backgroundColor: '#FFFFFF',
-                            padding: 15,
-                            marginTop: 15,
-                            marginBottom: 5,
-                            marginHorizontal: 20,
-                            borderRadius: 10,
-                            shadowColor: '#000000',
-                            shadowOffset: {
-                                width: 0,
-                                height: 10,
-                            },
-                            shadowOpacity: 0.25,
-                            shadowRadius: 3.5,
-                            elevation: 5
-                        }}
-                    >
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                width: '75%',
-                            }}
-                        >
-                            <View 
-                                style={{
-                                    flexDirection: 'column',
-                                }}
-                            >
-                                <Text 
-                                    style={{
-                                        fontFamily: 'Poppins-Bold',
-                                        fontSize: 14,
-                                        fontWeight: 'bold',
-                                        color: '#000000',
-                                        marginBottom: 5,
-                                    }}
-                                >
-                                    Pengerjaan UI/UX Mobile Apps
-                                </Text>
-                                <Text
-                                    numberOfLines={2}
-                                    style={{
-                                        fontFamily: 'Poppins-Regular',
-                                        fontSize: 8,
-                                        color: '#000000',
-                                        marginBottom: 10,
-                                    }}
-                                >
-                                    Pembuatan desain UI/UX untuk aplikasi mobile absensi yang meliputi fitur home, task, scan barcode, inbox dan profile
-                                </Text>
-                                <Text
-                                    style={{
-                                        fontFamily: 'Poppins-Regular',
-                                        fontSize: 10,
-                                        color: '#9098B1',
-                                    }}
-                                >
-                                    15 Agt 2022. 12:00:00
-                                </Text>
-                            </View>
-                            <View 
-                                style={{
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <Text 
-                                    style={{
-                                        color: '#28A745', 
-                                        fontFamily: 'Poppins-Semibold', 
-                                        fontSize: 14, 
-                                        fontWeight: 'bold',
-                                        padding: 25,
-                                    }}
-                                >
-                                    Success
-                                </Text>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={{
-                            backgroundColor: '#FFFFFF',
-                            padding: 15,
-                            marginTop: 15,
-                            marginBottom: 5,
-                            marginHorizontal: 20,
-                            borderRadius: 10,
-                            shadowColor: '#000000',
-                            shadowOffset: {
-                                width: 0,
-                                height: 10,
-                            },
-                            shadowOpacity: 0.25,
-                            shadowRadius: 3.5,
-                            elevation: 5
-                        }}
-                    >
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                width: '75%',
-                            }}
-                        >
-                            <View 
-                                style={{
-                                    flexDirection: 'column',
-                                }}
-                            >
-                                <Text 
-                                    style={{
-                                        fontFamily: 'Poppins-Bold',
-                                        fontSize: 14,
-                                        fontWeight: 'bold',
-                                        color: '#000000',
-                                        marginBottom: 5,
-                                    }}
-                                >
-                                    Pengerjaan UI/UX Mobile Apps
-                                </Text>
-                                <Text
-                                    numberOfLines={2}
-                                    style={{
-                                        fontFamily: 'Poppins-Regular',
-                                        fontSize: 8,
-                                        color: '#000000',
-                                        marginBottom: 10,
-                                    }}
-                                >
-                                    Pembuatan desain UI/UX untuk aplikasi mobile absensi yang meliputi fitur home, task, scan barcode, inbox dan profile
-                                </Text>
-                                <Text
-                                    style={{
-                                        fontFamily: 'Poppins-Regular',
-                                        fontSize: 10,
-                                        color: '#9098B1',
-                                    }}
-                                >
-                                    15 Agt 2022. 12:00:00
-                                </Text>
-                            </View>
-                            <View 
-                                style={{
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <Text 
-                                    style={{
-                                        color: '#28A745', 
-                                        fontFamily: 'Poppins-Semibold', 
-                                        fontSize: 14, 
-                                        fontWeight: 'bold',
-                                        padding: 25,
-                                    }}
-                                >
-                                    Success
-                                </Text>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={{
-                            backgroundColor: '#FFFFFF',
-                            padding: 15,
-                            marginTop: 15,
-                            marginBottom: 5,
-                            marginHorizontal: 20,
-                            borderRadius: 10,
-                            shadowColor: '#000000',
-                            shadowOffset: {
-                                width: 0,
-                                height: 10,
-                            },
-                            shadowOpacity: 0.25,
-                            shadowRadius: 3.5,
-                            elevation: 5
-                        }}
-                    >
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                width: '75%',
-                            }}
-                        >
-                            <View 
-                                style={{
-                                    flexDirection: 'column',
-                                }}
-                            >
-                                <Text 
-                                    style={{
-                                        fontFamily: 'Poppins-Bold',
-                                        fontSize: 14,
-                                        fontWeight: 'bold',
-                                        color: '#000000',
-                                        marginBottom: 5,
-                                    }}
-                                >
-                                    Pengerjaan UI/UX Mobile Apps
-                                </Text>
-                                <Text
-                                    numberOfLines={2}
-                                    style={{
-                                        fontFamily: 'Poppins-Regular',
-                                        fontSize: 8,
-                                        color: '#000000',
-                                        marginBottom: 10,
-                                    }}
-                                >
-                                    Pembuatan desain UI/UX untuk aplikasi mobile absensi yang meliputi fitur home, task, scan barcode, inbox dan profile
-                                </Text>
-                                <Text
-                                    style={{
-                                        fontFamily: 'Poppins-Regular',
-                                        fontSize: 10,
-                                        color: '#9098B1',
-                                    }}
-                                >
-                                    15 Agt 2022. 12:00:00
-                                </Text>
-                            </View>
-                            <View 
-                                style={{
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <Text 
-                                    style={{
-                                        color: '#28A745', 
-                                        fontFamily: 'Poppins-Semibold', 
-                                        fontSize: 14, 
-                                        fontWeight: 'bold',
-                                        padding: 25,
-                                    }}
-                                >
-                                    Success
-                                </Text>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={{
-                            backgroundColor: '#FFFFFF',
-                            padding: 15,
-                            marginTop: 15,
-                            marginBottom: 5,
-                            marginHorizontal: 20,
-                            borderRadius: 10,
-                            shadowColor: '#000000',
-                            shadowOffset: {
-                                width: 0,
-                                height: 10,
-                            },
-                            shadowOpacity: 0.25,
-                            shadowRadius: 3.5,
-                            elevation: 5
-                        }}
-                    >
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                width: '75%',
-                            }}
-                        >
-                            <View 
-                                style={{
-                                    flexDirection: 'column',
-                                }}
-                            >
-                                <Text 
-                                    style={{
-                                        fontFamily: 'Poppins-Bold',
-                                        fontSize: 14,
-                                        fontWeight: 'bold',
-                                        color: '#000000',
-                                        marginBottom: 5,
-                                    }}
-                                >
-                                    Pengerjaan UI/UX Mobile Apps
-                                </Text>
-                                <Text
-                                    numberOfLines={2}
-                                    style={{
-                                        fontFamily: 'Poppins-Regular',
-                                        fontSize: 8,
-                                        color: '#000000',
-                                        marginBottom: 10,
-                                    }}
-                                >
-                                    Pembuatan desain UI/UX untuk aplikasi mobile absensi yang meliputi fitur home, task, scan barcode, inbox dan profile
-                                </Text>
-                                <Text
-                                    style={{
-                                        fontFamily: 'Poppins-Regular',
-                                        fontSize: 10,
-                                        color: '#9098B1',
-                                    }}
-                                >
-                                    15 Agt 2022. 12:00:00
-                                </Text>
-                            </View>
-                            <View 
-                                style={{
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <Text 
-                                    style={{
-                                        color: '#28A745', 
-                                        fontFamily: 'Poppins-Semibold', 
-                                        fontSize: 14, 
-                                        fontWeight: 'bold',
-                                        padding: 25,
-                                    }}
-                                >
-                                    Success
-                                </Text>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={{
-                            backgroundColor: '#FFFFFF',
-                            padding: 15,
-                            marginTop: 15,
-                            marginBottom: 5,
-                            marginHorizontal: 20,
-                            borderRadius: 10,
-                            shadowColor: '#000000',
-                            shadowOffset: {
-                                width: 0,
-                                height: 10,
-                            },
-                            shadowOpacity: 0.25,
-                            shadowRadius: 3.5,
-                            elevation: 5
-                        }}
-                    >
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                width: '75%',
-                            }}
-                        >
-                            <View 
-                                style={{
-                                    flexDirection: 'column',
-                                }}
-                            >
-                                <Text 
-                                    style={{
-                                        fontFamily: 'Poppins-Bold',
-                                        fontSize: 14,
-                                        fontWeight: 'bold',
-                                        color: '#000000',
-                                        marginBottom: 5,
-                                    }}
-                                >
-                                    Pengerjaan UI/UX Mobile Apps
-                                </Text>
-                                <Text
-                                    numberOfLines={2}
-                                    style={{
-                                        fontFamily: 'Poppins-Regular',
-                                        fontSize: 8,
-                                        color: '#000000',
-                                        marginBottom: 10,
-                                    }}
-                                >
-                                    Pembuatan desain UI/UX untuk aplikasi mobile absensi yang meliputi fitur home, task, scan barcode, inbox dan profile
-                                </Text>
-                                <Text
-                                    style={{
-                                        fontFamily: 'Poppins-Regular',
-                                        fontSize: 10,
-                                        color: '#9098B1',
-                                    }}
-                                >
-                                    15 Agt 2022. 12:00:00
-                                </Text>
-                            </View>
-                            <View 
-                                style={{
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <Text 
-                                    style={{
-                                        color: '#28A745', 
-                                        fontFamily: 'Poppins-Semibold', 
-                                        fontSize: 14, 
-                                        fontWeight: 'bold',
-                                        padding: 25,
-                                    }}
-                                >
-                                    Success
-                                </Text>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
+                                    <View
+                                        style={{
+                                            flexDirection: 'row',
+                                            justifyContent: 'space-between',
+                                        }}
+                                    >
+                                        <View 
+                                            style={{
+                                                flexDirection: 'column',
+                                                width: '80%',
+                                            }}
+                                        >
+                                            <Text 
+                                                style={{
+                                                    fontFamily: 'Poppins-Bold',
+                                                    fontSize: 14,
+                                                    fontWeight: 'bold',
+                                                    color: '#000000',
+                                                    marginBottom: 10,
+                                                }}
+                                            >
+                                                {tugas.name}
+                                            </Text>
+                                            <Text
+                                                numberOfLines={2}
+                                                style={{
+                                                    fontFamily: 'Poppins-Regular',
+                                                    fontSize: 12,
+                                                    color: '#000000',
+                                                    marginBottom: 5,
+                                                }}
+                                            >
+                                                {tugas.detail}
+                                            </Text>
+                                            <Text
+                                                style={{
+                                                    fontFamily: 'Poppins-Regular',
+                                                    fontSize: 12,
+                                                    color: '#9098B1',
+                                                }}
+                                            >
+                                                {moment(tugas.updated_at).format('LLL')}
+                                            </Text>
+                                        </View>
+                                        <View 
+                                            style={{
+                                                justifyContent: 'center',
+                                            }}
+                                        >
+                                            {tugas.statustask.nama.toUpperCase() === 'PROSES' ?
+                                                <>
+                                                    <Text 
+                                                        style={{
+                                                            color: '#28A745', 
+                                                            fontFamily: 'Poppins-Semibold', 
+                                                            fontSize: 14, 
+                                                            fontWeight: 'bold',
+                                                            
+                                                        }}
+                                                    >
+                                                        {tugas.statustask.nama.toUpperCase()}
+                                                    </Text>
+                                                </>
+                                            : (
+                                                <>
+                                                    <Text 
+                                                        style={{
+                                                            color: 'red', 
+                                                            fontFamily: 'Poppins-Semibold', 
+                                                            fontSize: 14, 
+                                                            fontWeight: 'bold',
+                                                            
+                                                        }}
+                                                    >
+                                                        {tugas.statustask.nama.toUpperCase()}
+                                                    </Text>
+                                                </>
+                                            )}
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                            ))}
+                            
+                        </>
+                    )}
                     <TouchableOpacity
                         style={{
                             backgroundColor: '#107FD8',
                             padding: 20,
                             marginTop: 15,
                             marginBottom: 5,
-                            marginHorizontal: 90,
-                            height: 60,
+                            marginHorizontal: 100,
+                            height: 55,
                             borderRadius: 20,
                             alignItems: 'center',
                             justifyContent: 'center',
@@ -532,17 +207,17 @@ const TaskScreen = () => {
                                 source={require('../../assets/icons/add.png')}
                                 resizeMode="contain"
                                 style={{
-                                    width: 15,
-                                    height: 15,
+                                    width: 13,
+                                    height: 13,
                                     marginRight: 15,
                                     tintColor: 'white',
-                                    marginBottom: -5,
+                                    marginTop: 2,
                                 }}
                             />
                             <Text 
                                 style={{
                                     fontFamily: 'Poppins-Bold',
-                                    fontSize: 18,
+                                    fontSize: 15,
                                     fontWeight: 'bold',
                                     color: '#FFFFFF',
                                 }}

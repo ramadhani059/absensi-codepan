@@ -46,7 +46,7 @@ const MessageScreen = ({navigation}) => {
                         <View
                             style={{
                                 flexDirection: 'row',
-                                width: '75%',
+                                width: '85%',
                                 justifyContent: 'space-between',
                             }}
                         >
@@ -61,7 +61,7 @@ const MessageScreen = ({navigation}) => {
                                         fontSize: 14,
                                         fontWeight: 'bold',
                                         color: '#000000',
-                                        marginBottom: 5,
+                                        marginBottom: 10,
                                     }}
                                 >
                                     Judul
@@ -70,9 +70,9 @@ const MessageScreen = ({navigation}) => {
                                     numberOfLines={2}
                                     style={{
                                         fontFamily: 'Poppins-Regular',
-                                        fontSize: 8,
+                                        fontSize: 12,
                                         color: '#000000',
-                                        marginBottom: 10,
+                                        marginBottom: 5,
                                     }}
                                 >
                                     Pembuatan desain UI/UX untuk aplikasi mobile absensi yang meliputi fitur home, task, scan barcode, inbox dan profile. Pembuatan desain UI/UX untuk aplikasi mobile absensi yang meliputi fitur home, task, scan barcode, inbox dan profile. Pembuatan desain UI/UX untuk aplikasi mobile absensi yang meliputi fitur home, task, scan barcode, inbox dan profile
@@ -80,14 +80,14 @@ const MessageScreen = ({navigation}) => {
                                 <Text
                                     style={{
                                         fontFamily: 'Poppins-Regular',
-                                        fontSize: 10,
+                                        fontSize: 12,
                                         color: '#9098B1',
                                     }}
                                 >
                                     15 Agt 2022. 12:00:00
                                 </Text>
                             </View>
-                            <View style={{ justifyContent: 'center', alignItems: 'center', paddingLeft: 45, paddingRight: 15}}>
+                            <View style={{ justifyContent: 'center', alignItems: 'center', paddingLeft: 20}}>
                                 <TouchableOpacity>
                                     <Image 
                                         source={require('../../assets/icons/delete.png')}
