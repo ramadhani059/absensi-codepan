@@ -8,7 +8,7 @@ const MessageScreen = ({navigation}) => {
                 <View
                     style={{
                         backgroundColor: '#2196F3',
-                        padding: 20,
+                        height: 115,
                         justifyContent: 'center',
                         alignItems: 'center',
                     }} 

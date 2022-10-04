@@ -7,7 +7,7 @@ import { BASE_URL } from "../config";
 import { AuthContext } from "../Context/AuthContext";
 
 const AddTaskScreen = ({}) => {
-    const {userInfo} = useContext(AuthContext);
+    const {userInfo, task} = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState(false);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -34,6 +34,7 @@ const AddTaskScreen = ({}) => {
             },)
             .then(res => {
                 setIsLoading(false);
+                task();
                 navigation.navigate('Task');
             })
             .catch(e => {

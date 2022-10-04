@@ -17,6 +17,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { AuthContext } from "../Context/AuthContext";
+import { check } from "react-native-permissions";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

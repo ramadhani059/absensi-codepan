@@ -7,31 +7,8 @@ import { BASE_URL } from "../config";
 import { AuthContext } from "../Context/AuthContext";
 
 const TaskScreen = () => {
-    const {userInfo} = useContext(AuthContext);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isrefresh, setRefresh] = useState(false);
-    const [listTask, setListTask] = useState([]);
+    const {task, isLoading, isrefresh, listTask} = useContext(AuthContext);
     const navigation = useNavigation();
-
-    // Get API Data
-    const task = async () => {
-        try {
-            setIsLoading(true);
-            setRefresh(true);
-            const response = await fetch(`${BASE_URL}/task/index?user_id=${userInfo.user.id}`, {
-                method: 'GET',
-                headers: {Authorization: `Bearer ${userInfo.token}`},
-            })
-            const json = await response.json();
-            setListTask(json.task_id);
-            console.log(json.task_id);
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setIsLoading(false);
-            setRefresh(false)
-        }
-    }
 
     // Navigate
     const onPressAddTask = () => {
@@ -50,7 +27,7 @@ const TaskScreen = () => {
                 <View
                     style={{
                         backgroundColor: '#2196F3',
-                        padding: 20,
+                        height: 115,
                         justifyContent: 'center',
                         alignItems: 'center',
                     }} 

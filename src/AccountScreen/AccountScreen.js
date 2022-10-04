@@ -36,7 +36,7 @@ const AccountScreen = ({navigation}) => {
         <View style={styles.container}>
             {isLoading ? 
                 <>
-                    <View style={{flex: 1, justifyContent: 'center'}}>
+                    <View style={{flex: 1, marginVertical: '70%'}}>
                         <ActivityIndicator size="large" color="#2196F3" />
                     </View>
                 </>
