@@ -172,7 +172,6 @@ const TaskScreen = () => {
                             marginTop: 15,
                             marginBottom: 5,
                             marginHorizontal: 100,
-                            height: 55,
                             borderRadius: 20,
                             alignItems: 'center',
                             justifyContent: 'center',
@@ -194,7 +193,7 @@ const TaskScreen = () => {
                             <Text 
                                 style={{
                                     fontFamily: 'Poppins-Bold',
-                                    fontSize: 15,
+                                    fontSize: 14,
                                     fontWeight: 'bold',
                                     color: '#FFFFFF',
                                 }}

@@ -87,19 +87,19 @@ export const AuthProvider = ({children}) => {
           dataAbsensiHarian = dataAbsensiHarian.filter(x => x.tanggal == getCurrentDate());
 
           setAbsensiHarian(dataAbsensiHarian);
-          console.log(dataAbsensiHarian);
+          // console.log(dataAbsensiHarian);
 
           let getSudahAbsensi = [...dataAbsensiHarian]
 
           getSudahAbsensi = getSudahAbsensi.some((y) => y.user_id == userInfo.user.id && y.masuk != null);
           setSudahAbsen(getSudahAbsensi);
-          console.log(getSudahAbsensi)
+          // console.log(getSudahAbsensi)
 
           let hadir = [...dataAbsensiHarian]
 
           hadir = hadir.filter(z => z.user_id == userInfo.user.id && z.keluar == null);
           setHadir(hadir);
-          console.log(hadir);
+          // console.log(hadir);
 
           let getHadir = [...hadir]
           

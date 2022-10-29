@@ -72,7 +72,7 @@ const AddTaskScreen = ({}) => {
                     </Text>
                     <View style={{marginBottom: 25}}>
                         <Text style={{
-                            fontSize: 15,
+                            fontSize: 14,
                             fontFamily: 'Roboto-Regular',
                             color: 'black',
                             marginBottom: -2,
@@ -87,7 +87,7 @@ const AddTaskScreen = ({}) => {
                     </View>
                     <View style={{marginBottom: 30}}>
                         <Text style={{
-                            fontSize: 15,
+                            fontSize: 14,
                             fontFamily: 'Roboto-Regular',
                             color: 'black',
                             marginBottom: -2,
@@ -131,7 +131,6 @@ const AddTaskScreen = ({}) => {
                                     marginTop: 15,
                                     marginBottom: 5,
                                     marginHorizontal: 40,
-                                    height: 55,
                                     borderRadius: 20,
                                     alignItems: 'center',
                                     justifyContent: 'center',
@@ -153,7 +152,7 @@ const AddTaskScreen = ({}) => {
                                     <Text 
                                         style={{
                                             fontFamily: 'Poppins-Bold',
-                                            fontSize: 15,
+                                            fontSize: 14,
                                             fontWeight: 'bold',
                                             color: '#FFFFFF',
                                         }}
@@ -187,7 +186,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 0,
         borderBottomWidth: 2,
         fontFamily: 'Roboto-Bold',
-        fontSize: 15,
+        fontSize: 13,
         color: '#000',
     },
     description:{
@@ -196,7 +195,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 0,
         borderBottomWidth: 2,
         fontFamily: 'Roboto-Regular',
-        fontSize: 15,
+        fontSize: 13,
         color: '#000',
     },
 });

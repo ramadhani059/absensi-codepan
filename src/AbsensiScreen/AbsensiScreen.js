@@ -320,7 +320,7 @@ export default AbsensiScreen;
 const styles = StyleSheet.create({
     centerText: {
       flex: 1,
-      fontSize: 18,
+      fontSize: 16,
       padding: 32,
       color: '#777'
     },
@@ -329,7 +329,7 @@ const styles = StyleSheet.create({
       color: '#000'
     },
     buttonText: {
-      fontSize: 21,
+      fontSize: 18,
       color: 'rgb(0,122,255)'
     },
     buttonTouchable: {
@@ -353,6 +353,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       marginTop: 55,
       marginBottom: 30,
+      paddingHorizontal: 15,
     },
     warning_title_two_line: {
       justifyContent: 'center',
@@ -403,7 +404,7 @@ const styles = StyleSheet.create({
 
     text_secondary: {
       fontFamily: 'Poppins-Regular',
-      fontSize: 15,
+      fontSize: 14,
       color: '#2196F3',
       marginTop: 15,
     },
@@ -417,6 +418,6 @@ const styles = StyleSheet.create({
     text_button: {
       color: 'white',
       fontFamily: 'Poppins-SemiBold',
-      fontSize: 20,
+      fontSize: 16,
     }
   });

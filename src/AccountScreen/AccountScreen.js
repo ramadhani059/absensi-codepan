@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     },
     regular: {
         fontFamily: 'Poppins-Regular',
-        fontSize: 13,
+        fontSize: 12,
         color: "#9098B1",
     },
     section: {
@@ -215,13 +215,13 @@ const styles = StyleSheet.create({
     },
     content:{
         fontFamily: 'Poppins-Regular',
-        fontSize: 13,
+        fontSize: 12,
         color: "#9098B1",
     },
     logout:{
         paddingLeft: 5,
         fontFamily: 'Poppins-Bold',
-        fontSize: 15,
+        fontSize: 14,
         color: "#FF2931",
     }
 });
