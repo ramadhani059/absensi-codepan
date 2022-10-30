@@ -219,67 +219,98 @@ const HomeScreen = ({navigation}) => {
               </>
             : (
               <>
-                {absensiHarian.slice(0).reverse().map((absen, index) => (
-                  <View key={index} source={absen}>
-                    <View style={{ paddingHorizontal: '6%', marginBottom: 10,}}>
-                      <View style={styles.boxListAbsensi}>
-                        <View style={{ flexDirection: 'row', width: '100%' }}>
-                          <View style={{ width: '16%' }}>
-                            <Image 
-                              source={require('../../assets/icons/account-home.png')}
-                              resizeMode="contain"
-                              style={{
-                                width: 40,
-                                height: 40,
-                                alignSelf: 'center',
-                                tintColor: '#2196F3',
-                              }}
-                            />
-                          </View>
-                          <View style={{ flexDirection: 'column', justifyContent: 'space-between', width: '45%', paddingHorizontal: 10,}}>
-                              <Text numberOfLines={1} style={styles.textName}>{absen.user.name}</Text>
-                              <Text numberOfLines={1} style={styles.textJabatan}>Jabatan</Text>
-                          </View>
-                          <View style={{ flexDirection: 'column', justifyContent: 'space-between', width: '39%', borderLeftColor: '#DADADA', borderLeftWidth: 1,  paddingHorizontal: 10, }}>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%',}}>
-                              <View style={{ width: '60%' }}>
-                                <Text style={styles.textIn}>Check In</Text>
+                {absensiHarian == '' ?
+                  <>
+                    <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 35, }}>
+                      <Image 
+                        source={require('../../assets/icons/information.png')}
+                        resizeMode="contain"
+                        style={{
+                          width: 50,
+                          height: 50,
+                          tintColor: '#2196F3',
+                        }}
+                      />
+                      <Text style={{ color: '#2196F3', justifyContent: 'center', fontSize: 14, fontFamily: 'Roboto-Bold', alignSelf: 'center', marginTop: 15 }}>Belum Ada yang Absen Hari Ini !</Text>
+                    </View>
+                    
+                  </>
+                : (
+                  <>
+                    {absensiHarian.slice(0).reverse().map((absen, index) => (
+                      <View key={index} source={absen}>
+                        <View style={{ paddingHorizontal: '6%', marginBottom: 10,}}>
+                          <View style={styles.boxListAbsensi}>
+                            <View style={{ flexDirection: 'row', width: '100%' }}>
+                              <View style={{ width: '16%' }}>
+                                <Image 
+                                  source={require('../../assets/icons/account-home.png')}
+                                  resizeMode="contain"
+                                  style={{
+                                    width: 40,
+                                    height: 40,
+                                    alignSelf: 'center',
+                                    tintColor: '#2196F3',
+                                  }}
+                                />
                               </View>
-                              <View style={{ width: '10%' }}>
-                                <Text style={styles.textIn}>:</Text>
-                              </View>
-                              <View style={{ width: '30%' }}>
-                                <Text style={styles.textIn}>{ moment(absen.created_at).format('HH:mm') }</Text>
-                              </View>
-                            </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between'}}>
-                            <View style={{ width: '60%' }}>
-                                <Text style={styles.textOut}>Check Out</Text>
-                              </View>
-                              <View style={{ width: '10%' }}>
-                                <Text style={styles.textOut}>:</Text>
-                              </View>
-                              { absen.keluar == null ?
+                              {absen.user.karyawan == null ?
                                 <>
-                                  <View style={{ width: '30%' }}>
-                                    <Text style={styles.textOut}>-</Text>
+                                  <View style={{ flexDirection: 'column', justifyContent: 'space-between', width: '45%', paddingHorizontal: 10,}}>
+                                    <Text numberOfLines={1} style={styles.textName}>{absen.user.admin.nama_lengkap}</Text>
+                                    <Text numberOfLines={1} style={styles.textJabatan}>{absen.user.admin.divisi}</Text>
                                   </View>
                                 </>
                               : (
                                 <>
-                                <View style={{ width: '30%' }}>
-                                  <Text style={styles.textOut}>{ moment(absen.updated_at).format('HH:mm') }</Text>
-                                </View>
+                                  <View style={{ flexDirection: 'column', justifyContent: 'space-between', width: '45%', paddingHorizontal: 10,}}>
+                                    <Text numberOfLines={1} style={styles.textName}>{absen.user.karyawan.nama_lengkap}</Text>
+                                    <Text numberOfLines={1} style={styles.textJabatan}>{absen.user.karyawan.divisi}</Text>
+                                  </View>
                                 </>
                               )}
-                              
+                              <View style={{ flexDirection: 'column', justifyContent: 'space-between', width: '39%', borderLeftColor: '#DADADA', borderLeftWidth: 1,  paddingHorizontal: 10, }}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%',}}>
+                                  <View style={{ width: '60%' }}>
+                                    <Text style={styles.textIn}>Check In</Text>
+                                  </View>
+                                  <View style={{ width: '10%' }}>
+                                    <Text style={styles.textIn}>:</Text>
+                                  </View>
+                                  <View style={{ width: '30%' }}>
+                                    <Text style={styles.textIn}>{ moment(absen.created_at).format('HH:mm') }</Text>
+                                  </View>
+                                </View>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <View style={{ width: '60%' }}>
+                                    <Text style={styles.textOut}>Check Out</Text>
+                                  </View>
+                                  <View style={{ width: '10%' }}>
+                                    <Text style={styles.textOut}>:</Text>
+                                  </View>
+                                  { absen.keluar == null ?
+                                    <>
+                                      <View style={{ width: '30%' }}>
+                                        <Text style={styles.textOut}>-</Text>
+                                      </View>
+                                    </>
+                                  : (
+                                    <>
+                                    <View style={{ width: '30%' }}>
+                                      <Text style={styles.textOut}>{ moment(absen.updated_at).format('HH:mm') }</Text>
+                                    </View>
+                                    </>
+                                  )}
+                                  
+                                </View>
+                              </View>
                             </View>
                           </View>
                         </View>
                       </View>
-                    </View>
-                  </View>
-                ))}
+                    ))}
+                  </>
+                )}
               </>
             )}
             <View style={{height: 120}}></View>

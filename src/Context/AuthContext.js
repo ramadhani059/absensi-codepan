@@ -87,7 +87,7 @@ export const AuthProvider = ({children}) => {
           dataAbsensiHarian = dataAbsensiHarian.filter(x => x.tanggal == getCurrentDate());
 
           setAbsensiHarian(dataAbsensiHarian);
-          // console.log(dataAbsensiHarian);
+          console.log(dataAbsensiHarian);
 
           let getSudahAbsensi = [...dataAbsensiHarian]
 
